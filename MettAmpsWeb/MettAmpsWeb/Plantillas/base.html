@@ -1,0 +1,25 @@
+<html>
+<head>
+
+    <title>
+
+        {% block title %} {% endblock%}
+    
+    </title>
+</head>
+
+<body>
+
+    <h1 style= "background-color: darkolivegreen; color: white; text-align: center;">MettAmps</h1>
+    {% include "barra.html"%}
+
+    <h3 style="text-align: center;">Amplificadores para guitarra, bajo y monitores de estudio</h3>
+    {% block content %}
+
+    {% endblock %}
+
+
+    <p style= "background-color: darkolivegreen; color: white; text-align: right;">Asesorías gratuitas. Gracias por su visita</p>
+</body>
+
+</html>
