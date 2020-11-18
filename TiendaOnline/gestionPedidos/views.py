@@ -1,6 +1,9 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from gestionPedidos.models import *
+from django.conf import settings
+from django.core.mail import send_mail
+from gestionPedidos.forms import *
 
 # Create your views here.
 
@@ -22,11 +25,42 @@ def buscar(request):
         mensaje = "no has introducido ningún texto"
  
     return HttpResponse(mensaje)
-
+'''
 def contacto(request):
 
     if request.method == "POST":
+
+
+        subject = request.POST["asunto"]
+        message = request.POST["mensaje"]+ " "+ request.POST["email"]
+        
+        email_from = settings.EMAIL_HOST_USER
+
+        recipient_list = ["arcan_diabdo@hotmail.com"]
+
+        send_mail(subject, message, email_from, recipient_list, fail_silently=False)
+
+
         return render(request, "gracias.html")
     
 
     return render(request, "contacto.html")
+ '''
+def contacto(request):
+    if request.method == "POST":
+
+        miFormulario = FormularioContacto(request.POST)
+
+        if miFormulario.is_valid():
+
+            infForm=miFormulario.cleaned_data
+
+            send_mail(infForm['asunto'],infForm['mensaje'],
+            einfForm.get('email',''),['arcan_diabdo@hotmail.com'],)
+
+            return render(request,'gracias.html')
+    else:
+        miFormulario = FormularioContacto()
+
+    return render(request, "formulario_contacto.html", {"form":miFormulario})
+    
