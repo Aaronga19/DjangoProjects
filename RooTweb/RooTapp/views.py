@@ -4,21 +4,22 @@ from django.shortcuts import render, HttpResponse
 
 def home(request):
 
-    return HttpResponse('Home')
+    return render(request, 'RooTapp/home.html')
 
 def services(request):
 
-    return HttpResponse('Services')
+    return render(request, 'RooTapp/services.html')
 
 def shop(request):
 
-    return HttpResponse('Shop')
+    return render(request, 'RooTapp/shop.html')
 
 def blog(request):
 
-    return HttpResponse('Blog')
+    return render(request, 'RooTapp/blog.html')
 
 def contact(request):
 
-    return HttpResponse('Contact')
+    return render(request, 'RooTapp/contact.html')
 
+# Para que se pueda visualizar, se tiene que registrar la app en settings.py

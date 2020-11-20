@@ -14,14 +14,14 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
-from RooTapp import views
+from django.urls import path, include
+
+
+# Organizar URLS para las distintas apps con urls.py de cada app
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.home, name='Home'),
-    path('services/', views.services, name='Services'),
-    path('shop/', views.shop, name='Shop'),
-    path('blog/', views.blog, name='Blog'),
-    path('contact/', views.contact, name='Contact'),
-]
+    path('RooTapp/', include('RooTapp.urls')),
+]   
+
+#   Para añadir urls de cualquier app __ path('RooTapp', include("RooTweb.urls"))
