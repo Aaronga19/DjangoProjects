@@ -10,10 +10,6 @@ def shop(request):
 
     return render(request, 'RooTapp/shop.html')
 
-def blog(request):
-
-    return render(request, 'RooTapp/blog.html')
-
 def contact(request):
 
     return render(request, 'RooTapp/contact.html')

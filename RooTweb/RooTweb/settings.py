@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'RooTapp',
     'Services',
+    'blog',
 ] # Agregar las apps creadas aquí arriba 
 
 MIDDLEWARE = [
