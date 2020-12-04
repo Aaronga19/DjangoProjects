@@ -21,7 +21,7 @@
 
     <h1 class="site-heading text-center text-white d-none d-lg-block">
       
-        <span class="site-heading-lower">Gestión de Pedidos</span>
+        <span class="site-heading-lower">RooT Ráiz</span>
       </h1>
 
 
@@ -34,19 +34,19 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav mx-auto">
-          <li class="nav-item {% if request.path == 'RooTapp/' %}active{% endif %} px-lg-4">
+          <li class="nav-item {% if request.path == '/RooTapp/' %}active{% endif %} px-lg-4">
             <a class="nav-link text-uppercase text-expanded" href="{% url 'Home' %}">Inicio</a>
           </li>
-          <li class="nav-item {% if request.path == 'RooTapp/services' %}active {% endif %}px-lg-4">
+          <li class="nav-item {% if request.path == '/Services/' %}active {% endif %}px-lg-4">
             <a class="nav-link text-uppercase text-expanded" href="{% url 'Services' %}">Servicios</a>
           </li>
-          <li class="nav-item {% if request.path == 'RooTapp/shop' %}active {% endif %}px-lg-4">
+          <li class="nav-item {% if request.path == '/RooTapp/shop/' %}active {% endif %}px-lg-4">
             <a class="nav-link text-uppercase text-expanded" href="{% url 'Shop' %}">Tienda</a>
           </li>
-          <li class="nav-item {% if request.path == 'RooTapp/contact' %}active{% endif %}px-lg-4">
+          <li class="nav-item {% if request.path == '/RooTapp/contact/' %}active{% endif %}px-lg-4">
             <a class="nav-link text-uppercase text-expanded" href="{% url 'Contact' %}">Contacto</a>
           </li>
-          <li class="nav-item {% if request.path == 'RooTapp/blog' %}active{% endif %} px-lg-4">
+          <li class="nav-item {% if request.path|slice:':6' == '/Blog/' %}active{% endif %} px-lg-4">
             <a class="nav-link text-uppercase text-expanded" href="{% url 'Blog' %}">Blog</a>
           </li>
          

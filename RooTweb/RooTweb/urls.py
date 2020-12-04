@@ -26,6 +26,7 @@ urlpatterns = [
     path('RooTapp/', include('RooTapp.urls')),
     path('Services/', include('Services.urls')),
     path('Blog/', include('blog.urls')),
+    path('Contact/', include('Contact.urls')),
 
 
 ]   

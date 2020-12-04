@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'RooTapp',
     'Services',
     'blog',
+    'Contact',
 ] # Agregar las apps creadas aquí arriba 
 
 MIDDLEWARE = [

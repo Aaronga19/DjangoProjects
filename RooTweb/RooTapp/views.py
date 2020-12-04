@@ -10,8 +10,6 @@ def shop(request):
 
     return render(request, 'RooTapp/shop.html')
 
-def contact(request):
 
-    return render(request, 'RooTapp/contact.html')
 
 # Para que se pueda visualizar, se tiene que registrar la app en settings.py
