@@ -22,10 +22,14 @@
   </section>
 
 
-  <div>
-    <p style="color: wheat;"> 
-      {{miFormulario}}
-    </p>
+  <div class="contenedorFormulario">
+    <form action="" method="POST" style="text-align: center;">
+    {% csrf_token %}
+    <table style="color: wheat; margin: 20px auto;"> 
+      {{miFormulario.as_table}}
+    </table>
+    <input type="submit" value="Enviar" style="width: 150px;"></input>
+    </form>
   </div>
 
 {% endblock %}

@@ -6,6 +6,6 @@ class ContactForm(forms.Form):
 
     email = forms.EmailField(label="Email", required=True)
 
-    contenido = forms.CharField(label="Contenido", required=True)
+    contenido = forms.CharField(label="Contenido", required=True, widget=forms.Textarea)
     
       
