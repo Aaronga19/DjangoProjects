@@ -6,9 +6,6 @@ def home(request):
 
     return render(request, 'RooTapp/home.html')
 
-def shop(request):
-
-    return render(request, 'RooTapp/shop.html')
 
 
 

@@ -3,8 +3,8 @@ from RooTapp import views
 
 
 
+
 urlpatterns = [
     path('', views.home, name='Home'),
-    path('shop/', views.shop, name='Shop'),
 ]
 

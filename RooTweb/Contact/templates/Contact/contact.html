@@ -23,13 +23,17 @@
 
 
   <div class="contenedorFormulario">
+    {% if 'valido' in request.GET %}
+          <p style="color: burlywood;">Información enviada correctamente. Nos pondremos en contacto a la brevedad.</p>
+    {% elif 'novalido' in request.GET %}
+          <p style="color: crimson;">La información no pudo ser enviada. Intente de nuevo o más tarde.</p>
+    {% endif %}
     <form action="" method="POST" style="text-align: center;">
-    {% csrf_token %}
-    <table style="color: wheat; margin: 20px auto;"> 
-      {{miFormulario.as_table}}
-    </table>
-    <input type="submit" value="Enviar" style="width: 150px;"></input>
+      {% csrf_token %}
+      <table style="color: wheat; margin: 20px auto;">{{miFormulario.as_table}}</table>
+      <input type="submit" value="Enviar" style="width: 150px;"></input>
     </form>
   </div>
+  <p style="color: snow;">{{request.POST}}</p>
 
 {% endblock %}
