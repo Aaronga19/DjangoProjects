@@ -1,0 +1,14 @@
+<h1>Se tiene la base de datos</h1>
+TITULOS:
+{% for elemento in listaModelo %}
+    <li style="color: brown;">{{elemento.titulo}}</li>
+    
+{% endfor %}
+Subtitulos:
+{% for elemento in listaModelo %}
+<li style="color: chocolate;">{{elemento.subtitulo}}</li>
+{% endfor %}
+Cantidades:
+{% for elemento in listaModelo %}
+<li style="color: darkgreen;">{{elemento.cantidad}}</li>
+{% endfor %}
