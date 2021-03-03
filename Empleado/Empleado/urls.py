@@ -21,4 +21,5 @@ urlpatterns = [
     # incluimos las urls de la app 'departamento'
     path('', include('applications.departamento.urls')),
     path('', include('applications.home.urls')),
+    path('', include('applications.persona.urls'))
 ]
