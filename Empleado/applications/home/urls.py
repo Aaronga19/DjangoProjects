@@ -6,6 +6,11 @@ urlpatterns = [
     path('prueba/', PruebaView.as_view()),
     path('lista/', PruebaListView.as_view()),
     path('lista-prueba/', ListarPrueba.as_view()),
-    path('add/', PruebaCreateView.as_view()),
+    path('add/', PruebaCreateView.as_view(), name= 'prueba_add'),
+    path(
+        'resume-foundation/', 
+        ResumenFoundation.as_view(), 
+        name='resumen-foundation'),
+
 
 ]
