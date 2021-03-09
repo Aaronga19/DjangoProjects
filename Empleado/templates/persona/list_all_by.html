@@ -1,11 +1,73 @@
-<h1>Filtro por departamento</h1>
-{{object_list}}
-<ul>
+{% extends 'base.html' %}
+
+
+{% block title %}
+    Lista empleados por departamento
+{% endblock title %}
     
-    {% for e in object_list %}
-        <li>{{e}}</li>
-    {% endfor %}
+
+{% block content %}
+{% include 'includes/header.html' %}
+    <div class='grid-container'>
+        <div class="grid-x">
+            <div class="cell">Empleados por área: {{empleados}}</div>
+            <div class="cell">
+                <table>
+                    <tbody class="">
+                        
+                        <table>
+                            <thead>
+                              <tr>
+                                <th width="50">ID</th>
+                                <th width="100">Nombres</th>
+                                <th width="150">Apellidos</th>
+                                <th width="150">Departamento</th>
+                                <th width="150">Acción</th>
+                              </tr>
+                            </thead>
+                            <tbody
+                                {% for e in empleados %}>
+                                    <tr>
+                                        <td>{{e.id}}</td>
+                                        <td>{{e.first_name}}</td>
+                                        <td>{{e.last_name}}</td>
+                                        <td>{{e.departamento.shor_name}}</td>
+                                        <td><a class="button primary" href="{% url 'persona_app:empleado_detalle' e.id %}">Ver</a></td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                          </table>
+
+
+
+
+                        {% for departamento in departamentos %}
+                        <tr>
+                            <td>{{departamento.name}}</td>
+                            <td>{{departamento.shor_name}}</td>
+                            <td>{{departamento.active}}</td>
+                            <td>
+                                <a class="button primary" href="{% url 'persona_app:empleados_area' departamento.shor_name %}">Ver empleados</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+
+    <h1>Filtro por departamento</h1>
+    <p>{{object_list.shor_name}}</p>
+    <ul>
         
+        {% for e in empleados %}
+            <li>{{e}}</li>
+        {% endfor %}
+            
+    </ul>
+{% endblock content %}
     
-        
-</ul>
+

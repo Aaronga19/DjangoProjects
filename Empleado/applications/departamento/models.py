@@ -4,7 +4,7 @@ from django.db import models
 
 
 class Departamento(models.Model):
-    name = models.CharField('Nombre', max_length=50, editable=False)
+    name = models.CharField('Nombre', max_length=50, editable=True)
     shor_name = models.CharField('Nombre corto', max_length=20, unique=True)
     active = models.BooleanField('Activo', default=False)
 

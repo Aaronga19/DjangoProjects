@@ -5,8 +5,11 @@ from .models import *
 
 # Create your views here.
 # Listar trabajadores de la empresa 
+class InicioView(TemplateView):
+    """ Vista que carga la página home """
+    template_name = 'inicio.html'
+
 class ListAllEmpleados(ListView):
-    model = Empleado
     template_name = "persona/list_all.html"
     context_object_name = "Empleados"
     paginate_by = 4
@@ -14,10 +17,18 @@ class ListAllEmpleados(ListView):
     """def get_queryset(self):
         numero = self.request.GET.get("page", '')
         return numero"""
+    def get_queryset(self):
+        palabra_clave = self.request.GET.get("kword", '')
+        
+        lista = Empleado.objects.filter(
+            full_name__icontains = palabra_clave
+            )
+        return lista
 # Listar por area de la empresa
 class ListByAreaEmpleado(ListView):
     """Lista empleados de un area"""
     template_name = "persona/list_all_by.html"
+    context_object_name = 'empleados'
     def get_queryset(self):
         area = self.kwargs["shorname"]
         "el código que yo quiera"
@@ -25,12 +36,12 @@ class ListByAreaEmpleado(ListView):
         return lista
 # Listar Empleados por trabajo
 """class ListByJobEmpleado(ListView):
-    '''Lista empleados de un area'''
+    '''Lista empleados de trabajo'''
     template_name = "persona/list_all_byJob.html"
     def get_queryset(self):
-        area = self.kwargs["shorname"]
+        area = self.kwargs["job"]
         "el código que yo quiera"
-        lista = Empleado.objects.filter(departamento__shor_name = area)
+        lista = Empleado.objects.filter(departamento__job = trabajo)
         return lista
  """
 class ListEmpleadosByKword(ListView):
@@ -43,6 +54,15 @@ class ListEmpleadosByKword(ListView):
             first_name = palabra_clave
             )
         return lista
+
+
+class ListaEmpleadosAdmin(ListView):
+    """    Lista empleado por palabra clave    """
+    template_name = "persona/lista_empleados.html"
+    paginate_by = 10
+    ordering = 'first_name'
+    context_object_name = 'empleados'
+    model = Empleado
 
 
 class ListaHabilidades(ListView):
@@ -67,11 +87,12 @@ class SuccessView(TemplateView):
 class EmpleadoCreateView(CreateView):
     template_name = "persona/add.html"
     model = Empleado
-    fields = ["first_name", "last_name", "job", "departamento", "habilidades"]
-    success_url = reverse_lazy('persona_app:correcto')
+    fields = ["first_name", "last_name", "job", "departamento", "habilidades", "avatar",  "hoja_vida"  ]
+    success_url = reverse_lazy('persona_app:empleados_admin')
+    
     def form_valid(self,form):
         # lógica del proceso
-        empleado = form.save()
+        empleado = form.save(commit=False)
         empleado.full_name = empleado.first_name + ' ' + empleado.last_name
         empleado.save()
         return super(EmpleadoCreateView, self).form_valid(form)
@@ -81,12 +102,12 @@ class EmpleadoUpdateView(UpdateView):
     template_name = "persona/update.html"
     model = Empleado
     fields = ["first_name", "last_name", "job", "departamento", "habilidades"]
-    success_url = reverse_lazy('persona_app:correcto')
+    success_url = reverse_lazy('persona_app:empleados_admin')
     def post(self,request,*args,**kwargs):
         self.object = self.get_object()
         return super().post(request,*args, **kwargs)
         
-    def form_valid(self, ):
+    def form_valid(self, form):
         return super(EmpleadoUpdateView, self).form_valid(form)
 
 
@@ -94,7 +115,7 @@ class EmpleadoUpdateView(UpdateView):
 class EmpleadoDeleteView(DeleteView):
     template_name = "persona/delete.html"
     model = Empleado
-    success_url = reverse_lazy("persona_app:correcto")
+    success_url = reverse_lazy("persona_app:empleados_admin")
 
 
 

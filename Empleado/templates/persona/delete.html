@@ -1,6 +1,25 @@
-<h1>Eliminar</h1>
+{% extends 'base.html' %}
 
-<form method="POST">{% csrf_token %}
-    <p>Confirme que desea eliminar</p>
-    <button type="submit">Confirmar</button>
-</form>
+{% block title %}
+    Eliminar empleado
+{% endblock title %}
+    
+
+{% block content %}
+    {% include 'includes/header.html' %} 
+    <div class="grid-container">
+        <div class="grid-x">
+            <h1 class="cell">Eliminar empleado: {{object.first_name}}</h1>
+            <form method="POST">{% csrf_token %}
+                <div class="callout alert">
+                    <h5>¿Desea eliminar el este empleado?</h5>
+                    <p>Recuerde que al eliminar ya no se tendra ningun registro de este usuario, <strong>ni podrá revertir el cambio.</strong></p>
+                    <div class="grid-x align-center grid-margin-x">
+                        <button type="submit" class="button warning">Eliminar</button>
+                    </div>
+                </div>
+            </form>
+        </div> 
+    </div>
+{% endblock content %}
+    

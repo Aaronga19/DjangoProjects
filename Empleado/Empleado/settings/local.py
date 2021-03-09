@@ -29,3 +29,7 @@ DATABASES = {
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR.child('static')]
+
+# Configuración para generar los archivos de media de los registros
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR.child('media')
