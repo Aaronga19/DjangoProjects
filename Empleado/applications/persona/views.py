@@ -1,7 +1,10 @@
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView, CreateView, TemplateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
+# Models
 from .models import *
+# Forms
+from .forms import EmpleadoForm
 
 # Create your views here.
 # Listar trabajadores de la empresa 
@@ -76,6 +79,12 @@ class ListaHabilidades(ListView):
 class EmpleadoDetailView(DetailView):
     model = Empleado 
     template_name = "persona/detail_empleado.html"
+    
+    def get_context_data(self,**kwargs):
+        context = super(EmpleadoDetailView, self).get_context_data(**kwargs)
+        # Todo el proceso
+        context['titulo'] = 'Empleado del mes'
+        return context
 
 # CREATE VIEW Vista para registrar empleados en la base de datos
     # 4 campos para funcionar
@@ -86,8 +95,7 @@ class SuccessView(TemplateView):
 
 class EmpleadoCreateView(CreateView):
     template_name = "persona/add.html"
-    model = Empleado
-    fields = ["first_name", "last_name", "job", "departamento", "habilidades", "avatar",  "hoja_vida"  ]
+    form_class = EmpleadoForm
     success_url = reverse_lazy('persona_app:empleados_admin')
     
     def form_valid(self,form):

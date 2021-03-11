@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% load static %}
+
 {% block title %}
     Detalles
 {% endblock title %}
@@ -10,33 +12,51 @@
     <div class="grid-x large-12 align-center" style="font-size: 24px; color:wheat; font-family: cursive; border: 2px solid black; margin: auto; border-radius: 10px; margin: 20px 35% 20px; background-color: rgb(110, 99, 82);">
         {{empleado}}
     </div>  
-    <div>
+    <div class="grid-x grid-margin-x align-center">
         <table style="background-color: saddlebrown;">
             <thead>
               <tr>
                 <th width="50" style="text-align: center;">ID</th>
-                <th width= "150" style="text-align: center;">Nombre</th>
+                <th width="150" style="text-align: center;">Nombre</th>
                 <th width="150" style="text-align: center;">Apellidos</th>
                 <th width="150" style="text-align: center;">Trabajo</th>
                 <th width="150" style="text-align: center;">Departamento</th>
-                <th width="150" style="text-align: center;">Habilidades</th>
+                <th width="150" style="text-align: center;"><span class="label">Habilidades</span></th>
                 <th width="150" style="text-align: center;"> Foto</th>
                 <th width="150" style="text-align: center;">CV</th>
               </tr>
             </thead>
-            <tbody>
-              <tr>
+            <tbody class="cell align-center">
+              <tr class="cell align-center">
                 <td style="text-align: center;">{{empleado.id}}</td>
                 <td>{{empleado.first_name}}</td>
                 <td>{{empleado.last_name}}</td>
-                <td style="text-align: center;">{{empleado.job}}</td>
+                <td style="text-align: center;">{{empleado.get_job_display  }}</td>
                 <td>{{empleado.departamento.shor_name}}</td>
-                <td>{{empleado.habilidades}}</td>
-                <td>{{empleado.avatar}}</td>
+                <td><ul class="vertical menu">
+                  
+                  {% for h in empleado.habilidades.all %}
+                    <li>♦ {{h.habilidad}}</li>
+                  {% endfor %}
+      
+                </ul></td>
+                <!--  Foto  -->
+                <td>
+                  
+                  {% if empleado.avatar %}
+                    <img style="size: 10%;" src="{{empleado.avatar.url}}">
+                  {% else %}
+                    <img src="{% static 'img/Cosmeticos.jpg' %}">
+                  {% endif %}
+                    
+                </td>
                 <td>{{empleado.hoja_vida}}</td>
               </tr>
               </tr>
             </tbody>
           </table>
+
+
+          
 {% endblock content %}
     
