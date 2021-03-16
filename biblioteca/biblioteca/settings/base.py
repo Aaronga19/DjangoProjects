@@ -33,10 +33,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # Para hacer uso de los triagrams en Postgres
+    'django.contrib.postgres',
     # LOCAL APPS
     'applications.autor',
     'applications.libro',
     'applications.lector',
+    #'applications.home',
 ]
 
 MIDDLEWARE = [
@@ -72,3 +75,16 @@ WSGI_APPLICATION = 'biblioteca.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
+
+# Internationalization
+# https://docs.djangoproject.com/en/3.0/topics/i18n/
+
+LANGUAGE_CODE = 'es-mx'
+
+TIME_ZONE = 'UTC'
+
+USE_I18N = True
+
+USE_L10N = True
+
+USE_TZ = True

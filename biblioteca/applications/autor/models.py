@@ -4,19 +4,29 @@ from django.db import models
 # Managers
 from .managers import AutorManager
 
-
-class Autor(models.Model):
-    nombre = models.CharField("Nombre",
+class Persona(models.Model):
+    nombres = models.CharField("Nombre",
     max_length=50
     )
-    apellido = models.CharField( 
+    apellidos = models.CharField( 
     max_length=50
     )
     nacionalidad = models.CharField( 
-    max_length=30
+    max_length=20
     )
-    edad = models.PositiveIntegerField()
+    edad = models.PositiveIntegerField(default=0)
 
-    objects = AutorManager()
+    class Meta:
+        abstract = True
+
     def __str__(self):
-        return f"{self.nombre} - {self.apellido}" 
+        return f"{self.id} | {self.nombres} - {self.apellidos }" 
+
+class Autor(Persona):
+    seudonimo = models.CharField(
+        'Seudonimo', 
+        max_length=50,
+        blank=True,
+    )
+    objects = AutorManager()
+    

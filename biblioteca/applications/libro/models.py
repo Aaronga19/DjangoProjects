@@ -1,19 +1,20 @@
 from django.db import models
 from applications.autor.models import Autor
-from .managers import LibroManager
+from .managers import LibroManager, CategoriaManager
 
 # Create your models here.
 
 class Categoria(models.Model):
     nombre = models.CharField(max_length=30)
-
+    objects = CategoriaManager()
     def __str__(self):
         return self.nombre
     
 class Libro(models.Model):
     categoria = models.ForeignKey(
         Categoria, 
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
+        related_name='categoria_libro'
         )
     autores = models.ManyToManyField(
         Autor
@@ -24,5 +25,12 @@ class Libro(models.Model):
     portada = models.ImageField(upload_to='portada', blank=True, null=True)
     visitas = models.PositiveIntegerField(blank=True, null=True)
     objects = LibroManager()
+
+    class Meta:
+        verbose_name = 'Libro'
+        verbose_name_plural = 'Libros'
+        ordering = ['titulo', 'fecha']
+        
+
     def __str__(self):
-        return self.titulo
+        return f"{self.id} | {self.titulo}"
