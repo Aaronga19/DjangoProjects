@@ -1,0 +1,61 @@
+<!-- head para PC -->
+{% extends "entrada/base_entrada.html" %}
+{% load  static %}
+
+{% block title %}
+    {{detalle.title}}
+{% endblock title %}
+
+
+{% block description %}
+    <meta name="description" content="{{detalle.resume}}">
+{% endblock description %}
+
+
+{% block tags %}
+    <meta name="keywords" content="
+        {% for tag in detalle.tag.all  %}
+            {{tag.name}},
+        {% endfor %}
+        ">
+{% endblock tags %}
+      
+  
+{% block content %}
+
+{% include "includes/header.html" %}
+
+<div class="grid-container">
+    <div class="grid-x grid-margin-x" style="margin-top: 1em;">
+        <h3 class="cell">{{detalle.title}}</h3>
+        <img src="{{detalle.image.url}}" class="cell large-8" style="margin: 10px;">
+        <!-- bloque de contenido del articulo -->
+        <div class="cell large-8">
+            <div class="cell callout primary">
+                <h5>Resumen:</h5>
+                <p>{{detalle.resume}}</p>
+            </div>
+            <div>
+                <p>{{detalle.content|safe}}</p>
+            </div>
+        </div>
+        <!-- FIN bloque contenido del articulo -->
+
+        <!-- bloque llamada a la accion -->
+        <div class="cell large-4">
+            <div class="card" style="width: 100%;">
+                <img src="{{detalle.image.url}}" style="margin: 10px;">
+                <div class="card-section" style="width: 100%;">
+                  <form class="blog-action" method="POST" action="{% url 'favoritos_app:add-favoritos' detalle.id %}">{% csrf_token %}
+                    <button class="button alert" type="submit">Agregar a Favoritos</button>
+                  </form>
+                </div>
+            </div>
+        </div>
+        <!-- FIN bloque llamada a la accion -->
+
+    </div>
+</div>
+{% include "includes/footer.html" %}
+
+{% endblock content %}  
