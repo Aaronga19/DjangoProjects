@@ -41,5 +41,26 @@ urlpatterns = [
     views.PersonRetrieveUpdateView.as_view(),
     name='modify-api'
     ),
+    # Serializer form
+    path('api/personas/', 
+    views.PersonApiLista.as_view(),
+    name='form-api'
+    ),
+    path('api/reuniones/', 
+    views.ReunionApiLista.as_view(),
+    name='reuniones-api'
+    ),
+    path('api/reunionesLink/', 
+    views.ReunionApiListaLink.as_view(),
+    name='reunionesLink-api'
+    ),
+    path('api/personas/paginacion/', 
+    views.PersonPaginationList.as_view(),
+    name='personasPagination-api'
+    ),
+    path('api/reunion/per-job/', 
+    views.ReunionByPersonJobs.as_view(),
+    name='reunionPerson-api'
+    ),
 ]
 
