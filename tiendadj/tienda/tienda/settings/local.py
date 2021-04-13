@@ -30,5 +30,5 @@ MEDIA_ROOT = BASE_DIR.child('media')
 
 # FIREBASE
 
-cred = credentials.Certificate('fbjey.json')
+cred = credentials.Certificate('fbkey.json')
 default_app = firebase_admin.initialize_app(cred)

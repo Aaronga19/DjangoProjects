@@ -18,7 +18,8 @@
   <!-- Add Firebase products that you want to use -->
   <script src="https://www.gstatic.com/firebasejs/8.3.0/firebase-auth.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.3.0/firebase-firestore.js"></script>
-
+  
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <!--          Configuración de Firebase       -->
 
   <script>
@@ -39,20 +40,27 @@
         var provider = new firebase.auth.GoogleAuthProvider();
 
         // PopUp
-        firebase.auth()
-        .signInWithPopup(provider)
-        .then((result) => {
-            /** @type {firebase.auth.OAuthCredential} */
-            var credential = result.credential;
-
+        firebase.auth().signInWithPopup(provider).then(function(result) { 
             // This gives you a Google Access Token. You can use it to access the Google API.
-            var token = credential.idToken;
+            var token = result.credential.idToken;
             // The signed-in user info.
             var user = result.user;
-            console.log('*****************')
-            console.log(token)
+            // Recuperar id token user 
+            user.getIdToken().then(
+              function(idToken) {
+                console.log(idToken)
+                var data = {'token_id': idToken}
+                axios.post("/api/google-login/", data).then(
+                  function(response){
+                    console.log(response)
+                  }
+                )
+              }).catch(function(error) {
+              
+              }
+            );
             // ...
-        }).catch((error) => {
+        }).catch(function(error) {
             // Handle Errors here.
             var errorCode = error.code;
             var errorMessage = error.message;
@@ -62,7 +70,7 @@
             var credential = error.credential;
             // ...
         });
-    }
+    } 
     
   </script>
 {% endblock js %}
