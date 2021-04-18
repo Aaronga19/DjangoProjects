@@ -46,6 +46,12 @@ class ProductDetailSerializer(serializers.Serializer):
     pk = serializers.IntegerField()
     count = serializers.IntegerField()
 
+
+class ArrayIntegerSerializer(serializers.ListField):
+    child = serializers.IntegerField()
+
+
+
 class ProcesoVentaSerializer(serializers.Serializer):
 
     type_invoce = serializers.CharField()
@@ -54,5 +60,21 @@ class ProcesoVentaSerializer(serializers.Serializer):
     productos = ProductDetailSerializer(many=True)
 
 
+class ProcesoVentaSerializer2(serializers.Serializer):
 
+    type_invoce = serializers.CharField()
+    type_payment = serializers.CharField()
+    adreese_send = serializers.CharField()
+    productos = ArrayIntegerSerializer()
+    cantidades = ArrayIntegerSerializer()
 
+    def validate(self, data):
+        if data['type_payment'] != '0':
+            raise serializers.ValidationError('Ingrese un tipo de pago correcto')
+        return data
+
+    def validate_type_invoce(self, value):
+        if value != '0':
+            raise serializers.ValidationError('Ingrese un valor correcto')
+        return value
+    

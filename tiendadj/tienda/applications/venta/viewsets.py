@@ -1,35 +1,40 @@
-#
 from django.utils import timezone
-from django.shortcuts import render
-from rest_framework.authentication import TokenAuthentication
-from rest_framework.permissions import IsAuthenticated
-from rest_framework.generics import ListAPIView, CreateAPIView
+
+from django.shortcuts import get_object_or_404
+from rest_framework import viewsets
 from rest_framework.response import Response
 
-#
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import IsAuthenticated, AllowAny
+
+from .serializers import ProcesoVentaSerializer2, ventaReporteSerializers
+from .models import Sale, SaleDetail
+
 from applications.producto.models import Product
 
-from .models import Sale, SaleDetail
-from .serializers import (
-    ventaReporteSerializers,
-    ProcesoVentaSerializer,
-    ProcesoVentaSerializer2
-)
-# Create your views here.
+class VentasViewset(viewsets.ViewSet):
 
-class ReporteVentasList(ListAPIView):
-    serializer_class=ventaReporteSerializers
+    #authentication_classes= (TokenAuthentication,)
+    #permission_classes = [IsAuthenticated]
+
+    #serializer_class = ventaReporteSerializers
+    queryset = Sale.objects.all()
     
-    def get_queryset(self):
-        return Sale.objects.all()
+    def get_permissions(self):
+        if self.action=='list' or self.action=='retrieve':
+            permission_classes = [AllowAny]
+        else:
+            permission_classes = [IsAuthenticated]
 
-class RegistrarVenta2(CreateAPIView):
-    """  """
-    authentication_classes= (TokenAuthentication,)
-    permission_classes = [IsAuthenticated]
-    serializer_class = ProcesoVentaSerializer2
+        return [permission() for permission in permission_classes]
 
-    def create(self, request, *args, **kwargs):
+    def list(self, request, *args, **kwargs):
+        queryset = Sale.objects.all()
+        #
+        serializer = ventaReporteSerializers(queryset, many=True)
+        return Response(serializer.data)
+
+    def create(self, request):
         serializer = ProcesoVentaSerializer2(data=request.data)
         #
         serializer.is_valid(raise_exception=True)
@@ -76,3 +81,9 @@ class RegistrarVenta2(CreateAPIView):
         return Response({
             'msj':'Venta exitosa'
         })
+
+
+    def retrieve(self, request, pk=None):
+        venta = get_object_or_404(Sale.objects.all(), pk=pk)
+        serializer = ventaReporteSerializers(venta)
+        return Response(serializer.data)
